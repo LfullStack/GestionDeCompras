@@ -23,6 +23,7 @@ footer {
     text-align: center;
     padding: 1rem 0;
     border-top: 1px solid #6c757d;
+    
 }
 
 .card-hover {
@@ -38,6 +39,9 @@ footer {
 a.card-link {
     text-decoration: none;
     color: inherit;
+}
+thead{
+    color: rgb(87, 87, 247);
 }
 
 /* Proveedor */
@@ -98,4 +102,12 @@ li,ol{
     top: 0;
     left: 0;
     width: 100%;
+}
+/* Pagos */
+
+/* Remisiones */
+.sin-remision{
+    text-align: center;
+    color: rgb(248, 103, 103);
+    
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos || Inventario Global</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body class="body-general">
+    <h1 class="text-center mt-4 text-primary">INVENTARIO GLOBAL</h1>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom border-secondary">
+            <div class="container">
+                <h3 class="navbar-brand "><strong>Pagos</strong></h3>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link text-light" href="index.html">Menu Principal</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="proveedor.html">Remisiones</a></li>
+                        <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#proveedorRegistrado" href="proveedor.html">Facturas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>    
+    
+
+
+    <!-- Lista de remisiones -->
+    <div class=" mt-4" id="proveedorRegistrado">
+        <div class="card card-body bg-secondary text-light">
+            <h2 class="text-center mb-4">Lista de Remisiones</h2>
+            <table class="table table-dark table-striped mt-3" id="tablaProveedores">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Proveedor</th>
+                        <th>Consecutivo</th>
+                        <th>Fecha Ingreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th class="sin-remision" colspan="4"><span>¡ No hay remisiones registradas !</span></th>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light">
+        <div class="container">
+        <p>© 2025 Inventario Global. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
