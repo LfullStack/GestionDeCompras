@@ -1,0 +1,103 @@
+.body-general {
+    background-color: #121212;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-toggler {
+    border-color: white;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid #6c757d;
+}
+
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+a.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+.imagen-menu{
+    width: 298px;
+    height: 200px;
+}
+/* Proveedor */
+.proveedor {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form label {
+    font-weight: bold;}
+
+input::placeholder {
+    color: #fdf7f7;
+}
+.formProveedor{
+    background-color: rgba(53, 53, 135, 0.622);
+    margin-bottom: 150px;
+    border: solid 2px rgba(53, 53, 135);
+    border-radius: 20px;
+
+}
+/* Productos */
+.formProducto{
+    margin-bottom: 50px;
+}
+.boton-Generar{
+    margin-bottom: 200px;
+}
+/* Plantilla Orden de compra*/
+.factura {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+li,ol{
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+.seccion-contenedor {
+    position: relative;
+    min-height: 100vh;
+}
+.seccion-formulario, .seccion-factura {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
