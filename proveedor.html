@@ -36,23 +36,23 @@
         
         <form class=" p-4 rounded formProveedor" id="formProveedor" >
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre </label>
-                <input type="text" class="form-control t border-light" id="nombre" placeholder="Ej. Distribuciones S.A.">
+                <label for="nombreP" class="form-label">Nombre </label>
+                <input type="text" class="form-control t border-light" id="nombreP" placeholder="Ej. Distribuciones S.A.">
             </div>
     
             <div class="mb-3">
-                <label for="nit" class="form-label">NIT</label>
-                <input type="text" class="form-control  border-light" id="nit" placeholder="Ej. 900123456-7">
+                <label for="nitP" class="form-label">NIT</label>
+                <input type="number" class="form-control  border-light" id="nitP" placeholder="Ej. 900123456-7">
             </div>
     
             <div class="mb-3">
-                <label for="ubicacion" class="form-label">Ubicación</label>
-                <input type="text" class="form-control  border-light" id="ubicacion" placeholder="Ciudad, Dirección">
+                <label for="ubicacionP" class="form-label">Ubicación</label>
+                <input type="text" class="form-control  border-light" id="ubicacionP" placeholder="Ciudad, Dirección">
             </div>
     
             <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control  border-light" id="telefono" placeholder="Ej. 3001234567">
+                <label for="telefonoP" class="form-label">Teléfono</label>
+                <input type="number" class="form-control  border-light" id="telefonoP" placeholder="Ej. 3001234567">
             </div>
     
             <button type="submit" class="btn btn-primary w-100">Registrar</button>
@@ -69,9 +69,11 @@
                         <th>NIT</th>
                         <th>Ubicación</th>
                         <th>Teléfono</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="listaProveedor">
                 </tbody>
             </table>
         </div>
