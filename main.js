@@ -36,6 +36,24 @@ function crearProductos(nombre, cantidad, valor) {
     };
 }
 
+// Mostras productos
+function mostrarProductos(){
+    const lista=document.getElementById('tablaProducto');
+    lista.innerHTML="";
+
+    proveedor.forEach(p => {
+        const fila = document.createElement("tr");
+        fila.innerHTML= `
+            <td>${p.nombre}</td>
+            <td>${p.cantidad}</td>
+            <td>${p.precio}</td> 
+            <td> <button class="btn btn-sm btn-warning" onclick="editarEvento(${p.id})">Editar</button></td>
+            <td> <button class="btn btn-sm btn-danger" onclick="eliminarEvento(${p.id})">Eliminar</button> </td>
+        `;
+        lista.appendChild(fila);
+    });
+}
+
 // Mostras proveedores
 function mostrarProveedor(){
     const lista=document.getElementById('tablaProveedores');
@@ -88,23 +106,32 @@ formProveedor.addEventListener('submit', function (e) {
     // Limpiar form
 
     formProveedor.reset();
-
-
-    
-
-
-    
-
-
-
-
-
-
     
 });
 
+//Registrar productos desde formulario
+formProveedor.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-        
+    const nombre = document.getElementById("nombreProducto").value;
+    const nit = document.getElementById("cantidadProducto").value;
+    const ubicacion = document.getElementById("precioProducto").value;
+    
+    // Agrega a la lista de proveedores
+    const nuevoProveedor = registrarProveedor(nombre, nit, ubicacion, telefono);
+    proveedor.push(nuevoProveedor);
+    
+    // Actualizar lista
+    localStorage.setItem("proveedor",JSON.stringify(proveedor));
+    mostrarProveedor();
+
+    // Limpiar form
+
+    formProveedor.reset();
+    
+});
+
+//---------------------------------------------------------------------------       
 
 // Manejo del carrito (selección de productos)
 const formCarrito = document.getElementById('carritoCompras');
