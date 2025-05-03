@@ -268,7 +268,7 @@ function mostrarHistorial() {
 const div = document.getElementById('facturasGuardadas');
   div.innerHTML = ''; // Limpiar
 
-historial.forEach((factura, index) => {
+historial.forEach((factura) => {
     const pre = document.createElement('pre');
     pre.classList.add('bg-light', 'p-3', 'border', 'mb-2');
     pre.textContent = factura;
