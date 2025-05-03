@@ -146,6 +146,61 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("carrito", JSON.stringify(carrito));
             mostrarProductos();
 
+            if (document.getElementById('productosEscogidos')) {
+                const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+                let subtotal = 0;
+            
+                carritoGuardado.forEach(producto => {
+                    document.getElementById('productosEscogidos').innerHTML += `
+                        <tr>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.cantidad}</td>
+                            <td>$${producto.valor}</td>
+                        </tr>
+                    `;
+                    subtotal += producto.valor;
+                });
+            
+                const iva = subtotal * 0.19;
+                const total = subtotal + iva;
+            
+                document.getElementById("subtotal").textContent = `$${subtotal}`;
+                document.getElementById("iva").textContent = `$${iva.toFixed(2)}`;
+                document.getElementById("totalPago").textContent = `$${total.toFixed(2)}`;
+            }
+            
+            // Mostrar fecha y número de factura
+            if (document.getElementById("fecha")) {
+                const fecha = new Date().toLocaleDateString('es-ES');
+                document.getElementById("fecha").textContent = `Fecha: ${fecha}`;
+            }
+            if (document.getElementById("idFactura")) {
+                document.getElementById("idFactura").textContent = Math.floor(Math.random() * 1000000);
+            }
+            
+            // Registrar datos del cliente
+            const formCliente = document.getElementById("formCliente");
+            if (formCliente) {
+                formCliente.addEventListener("submit", function (e) {
+                    e.preventDefault();
+            
+                    const nombre = document.getElementById("nombreCliente").value;
+                    const direccion = document.getElementById("direccionCliente").value;
+                    const telefono = document.getElementById("telefonoCliente").value;
+                    const email = document.getElementById("emailCliente").value;
+            
+                    document.getElementById('nombre').innerHTML = `<strong>Nombre:</strong> ${nombre}`;
+                    document.getElementById('direccion').innerHTML = `<strong>Dirección:</strong> ${direccion}`;
+                    document.getElementById('telefono').innerHTML = `<strong>Teléfono:</strong> ${telefono}`;
+                    document.getElementById('email').innerHTML = `<strong>Email:</strong> ${email}`;
+            
+                    const registroCliente = document.getElementById("formCliente");
+                    const factura= document.getElementById("factura");
+                    registroCliente.classList.add("d-none");
+                    factura.classList.remove("d-none");
+                });
+            }
+
             // Abrir plantilla en nueva pestaña
             window.open("plantillaOrden.html", "_blank");
         });
