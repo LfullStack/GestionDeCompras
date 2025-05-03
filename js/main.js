@@ -44,13 +44,13 @@ function mostrarProveedor() {
     });
 }
 
-// === Mostrar productos ===
+// === Mostrar productos en carrito ===
 function mostrarProductos() {
     const tabla = document.getElementById('tablaProducto');
     if (!tabla) return;
 
     tabla.innerHTML = "";
-    producto.forEach(p => {
+    carrito.forEach(p => {
         const fila = document.createElement("tr");
         fila.innerHTML = `
             <td>${p.id}</td>
@@ -71,11 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarProveedor();
     }
 
-    // Recuperar productos
-    const productosGuardados = JSON.parse(localStorage.getItem("producto"));
-    if (productosGuardados) {
-        producto = productosGuardados;
+    // Recuperar carrito
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito"));
+    if (carritoGuardado) {
+        carrito = carritoGuardado;
         mostrarProductos();
+    }
+
+    // Recuperar órdenes anteriores
+    const ordenesGuardadas = JSON.parse(localStorage.getItem("ordenCompra"));
+    if (ordenesGuardadas) {
+        ordenCompra = ordenesGuardadas;
     }
 
     // === Formularios ===
@@ -109,11 +115,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const valor = document.getElementById("precioProducto").value;
 
             const nuevoProducto = agregarProducto(nombre, cantidad, valor);
-            producto.push(nuevoProducto);
+            carrito.push(nuevoProducto);
 
-            localStorage.setItem("producto", JSON.stringify(producto));
+            localStorage.setItem("carrito", JSON.stringify(carrito));
             mostrarProductos();
             formProducto.reset();
+        });
+    }
+
+    // === Generar orden ===
+    const botonGenerar = document.getElementById("generarOrden");
+    if (botonGenerar) {
+        botonGenerar.addEventListener("click", () => {
+            if (carrito.length === 0) {
+                alert("No hay productos para generar la orden.");
+                return;
+            }
+
+            const nuevaOrden = {
+                id: Date.now(),
+                fecha: new Date().toLocaleString(),
+                productos: [...carrito]
+            };
+
+            ordenCompra.push(nuevaOrden);
+            localStorage.setItem("ordenCompra", JSON.stringify(ordenCompra));
+
+            // Limpiar carrito
+            carrito = [];
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            mostrarProductos();
+
+            // Abrir plantilla en nueva pestaña
+            window.open("plantillaOrden.html", "_blank");
         });
     }
 });
