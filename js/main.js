@@ -1,4 +1,4 @@
-// Crear listas a utilizar
+// Listas generales
 let proveedor = [];
 let producto = [];
 let ordenCompra = [];
@@ -6,16 +6,7 @@ let remision = [];
 let factura = [];
 let carrito = [];
 
-
-// Recuperar proveedores guardados al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-    const proveedoresGuardados = JSON.parse(localStorage.getItem("proveedor"));
-    if (proveedoresGuardados) {
-        proveedor = proveedoresGuardados;
-    }
-});
-
-// Registrar proveedor
+// === Funciones de utilidad ===
 function registrarProveedor(nombreP, nitP, ubicacionP, telefonoP) {
     return {
         id: Date.now(),
@@ -26,8 +17,7 @@ function registrarProveedor(nombreP, nitP, ubicacionP, telefonoP) {
     };
 }
 
-// Crear productos
-function crearProductos(nombre, cantidad, valor) {
+function agregarProducto(nombre, cantidad, valor) {
     return {
         id: Date.now(),
         nombre,
@@ -36,89 +26,187 @@ function crearProductos(nombre, cantidad, valor) {
     };
 }
 
-// Mostras productos
-function mostrarProductos(){
-    const lista=document.getElementById('tablaProducto');
-    lista.innerHTML="";
+// === Mostrar proveedores ===
+function mostrarProveedor() {
+    const tabla = document.getElementById('tablaProveedores');
+    if (!tabla) return;
 
+    tabla.innerHTML = "";
     proveedor.forEach(p => {
         const fila = document.createElement("tr");
-        fila.innerHTML= `
-            <td>${p.nombre}</td>
-            <td>${p.cantidad}</td>
-            <td>${p.precio}</td> 
-            <td> <button class="btn btn-sm btn-warning" onclick="editarEvento(${p.id})">Editar</button></td>
-            <td> <button class="btn btn-sm btn-danger" onclick="eliminarEvento(${p.id})">Eliminar</button> </td>
-        `;
-        lista.appendChild(fila);
-    });
-}
-
-// Mostras proveedores
-function mostrarProveedor(){
-    const lista=document.getElementById('tablaProveedores');
-    lista.innerHTML="";
-
-    proveedor.forEach(p => {
-        const fila = document.createElement("tr");
-        fila.innerHTML= `
+        fila.innerHTML = `
             <td>${p.nombreP}</td>
             <td>${p.nitP}</td>
             <td>${p.ubicacionP}</td>
-            <td>${p.telefonoP}</td> 
-            <td> <button class="btn btn-sm btn-warning" onclick="editarEvento(${p.id})">Editar</button></td>
-            <td> <button class="btn btn-sm btn-danger" onclick="eliminarEvento(${p.id})">Eliminar</button> </td>
+            <td>${p.telefonoP}</td>
         `;
-        lista.appendChild(fila);
+        tabla.appendChild(fila);
     });
 }
 
-// Reccuperar datoss guardados al recargar pagina
-// Proveedor
-document.addEventListener("DOMContentLoaded",() => {
-    const proveedoresRegistrados= JSON.parse(localStorage.getItem("proveedor"));
-    if(proveedoresRegistrados){
-        proveedor=proveedoresRegistrados;
+// === Mostrar productos en carrito ===
+function mostrarProductos() {
+    const tabla = document.getElementById('tablaProducto');
+    if (!tabla) return;
+
+    tabla.innerHTML = "";
+    carrito.forEach(p => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.nombre}</td>
+            <td>${p.cantidad}</td>
+            <td>${p.valor}</td>
+        `;
+        tabla.appendChild(fila);
+    });
+}
+
+// === Recuperar datos guardados ===
+document.addEventListener("DOMContentLoaded", () => {
+    // Recuperar proveedores
+    const proveedoresGuardados = JSON.parse(localStorage.getItem("proveedor"));
+    if (proveedoresGuardados) {
+        proveedor = proveedoresGuardados;
         mostrarProveedor();
     }
-})
 
-// Productos
-document.addEventListener("DOMContentLoaded",() => {
-    const productosAgregados= JSON.parse(localStorage.getItem("producto"));
-    if(productosAgregados){
-        producto=productosAgregados;
+    // Recuperar carrito
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito"));
+    if (carritoGuardado) {
+        carrito = carritoGuardado;
         mostrarProductos();
     }
-})
 
+    // Recuperar órdenes anteriores
+    const ordenesGuardadas = JSON.parse(localStorage.getItem("ordenCompra"));
+    if (ordenesGuardadas) {
+        ordenCompra = ordenesGuardadas;
+    }
 
+    // === Formularios ===
 
+    // Proveedor
+    const formProveedor = document.getElementById('formProveedor');
+    if (formProveedor) {
+        formProveedor.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nombre = document.getElementById("nombreP").value;
+            const nit = document.getElementById("nitP").value;
+            const ubicacion = document.getElementById("ubicacionP").value;
+            const telefono = document.getElementById("telefonoP").value;
 
-// Registrar proveedor desde formulario
-const formProveedor = document.getElementById('formProveedor');
+            const nuevoProveedor = registrarProveedor(nombre, nit, ubicacion, telefono);
+            proveedor.push(nuevoProveedor);
 
-formProveedor.addEventListener('submit', function (e) {
-    e.preventDefault();
+            localStorage.setItem("proveedor", JSON.stringify(proveedor));
+            mostrarProveedor();
+            formProveedor.reset();
+        });
+    }
 
-    const nombre = document.getElementById("nombreP").value;
-    const nit = document.getElementById("nitP").value;
-    const ubicacion = document.getElementById("ubicacionP").value;
-    const telefono = document.getElementById("telefonoP").value;
-    
-    // Agrega a la lista de proveedores
-    const nuevoProveedor = registrarProveedor(nombre, nit, ubicacion, telefono);
-    proveedor.push(nuevoProveedor);
-    
-    // Actualizar lista
-    localStorage.setItem("proveedor",JSON.stringify(proveedor));
-    mostrarProveedor();
+    // Producto
+    const formProducto = document.getElementById('formProducto');
+    if (formProducto) {
+        formProducto.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nombre = document.getElementById("nombreProducto").value;
+            const cantidad = document.getElementById("cantidadProducto").value;
+            const valor = document.getElementById("precioProducto").value;
 
-    // Limpiar form
+            const nuevoProducto = agregarProducto(nombre, cantidad, valor);
+            carrito.push(nuevoProducto);
 
-    formProveedor.reset();
-    
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            mostrarProductos();
+            formProducto.reset();
+        });
+    }
+
+    // === Generar orden ===
+    const botonGenerar = document.getElementById("generarOrden");
+    if (botonGenerar) {
+        botonGenerar.addEventListener("click", () => {
+            if (carrito.length === 0) {
+                alert("No hay productos para generar la orden.");
+                return;
+            }
+
+            const nuevaOrden = {
+                id: Date.now(),
+                fecha: new Date().toLocaleString(),
+                productos: [...carrito]
+            };
+
+            ordenCompra.push(nuevaOrden);
+            localStorage.setItem("ordenCompra", JSON.stringify(ordenCompra));
+
+            // Limpiar carrito
+            carrito = [];
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            mostrarProductos();
+
+            if (document.getElementById('productosEscogidos')) {
+                const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+                let subtotal = 0;
+            
+                carritoGuardado.forEach(producto => {
+                    document.getElementById('productosEscogidos').innerHTML += `
+                        <tr>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.cantidad}</td>
+                            <td>$${producto.valor}</td>
+                        </tr>
+                    `;
+                    subtotal += producto.valor;
+                });
+            
+                const iva = subtotal * 0.19;
+                const total = subtotal + iva;
+            
+                document.getElementById("subtotal").textContent = `$${subtotal}`;
+                document.getElementById("iva").textContent = `$${iva.toFixed(2)}`;
+                document.getElementById("totalPago").textContent = `$${total.toFixed(2)}`;
+            }
+            
+            // Mostrar fecha y número de factura
+            if (document.getElementById("fecha")) {
+                const fecha = new Date().toLocaleDateString('es-ES');
+                document.getElementById("fecha").textContent = `Fecha: ${fecha}`;
+            }
+            if (document.getElementById("idFactura")) {
+                document.getElementById("idFactura").textContent = Math.floor(Math.random() * 1000000);
+            }
+            
+            // Registrar datos del cliente
+            const formCliente = document.getElementById("formCliente");
+            if (formCliente) {
+                formCliente.addEventListener("submit", function (e) {
+                    e.preventDefault();
+            
+                    const nombre = document.getElementById("nombreCliente").value;
+                    const direccion = document.getElementById("direccionCliente").value;
+                    const telefono = document.getElementById("telefonoCliente").value;
+                    const email = document.getElementById("emailCliente").value;
+            
+                    document.getElementById('nombre').innerHTML = `<strong>Nombre:</strong> ${nombre}`;
+                    document.getElementById('direccion').innerHTML = `<strong>Dirección:</strong> ${direccion}`;
+                    document.getElementById('telefono').innerHTML = `<strong>Teléfono:</strong> ${telefono}`;
+                    document.getElementById('email').innerHTML = `<strong>Email:</strong> ${email}`;
+            
+                    const registroCliente = document.getElementById("formCliente");
+                    const factura= document.getElementById("factura");
+                    registroCliente.classList.add("d-none");
+                    factura.classList.remove("d-none");
+                });
+            }
+
+            // Abrir plantilla en nueva pestaña
+            window.open("plantillaOrden.html", "_blank");
+        });
+    }
 });
+
 
 //Registrar productos desde formulario
 formProducto.addEventListener('submit', function (e) {
@@ -187,4 +275,3 @@ historial.forEach((factura, index) => {
     div.appendChild(pre);
 });
 }
-
