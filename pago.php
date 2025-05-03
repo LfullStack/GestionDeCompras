@@ -20,9 +20,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-light" href="index.html">Menu Principal</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="pago.html">Remisiones</a></li>
-                    <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#facturaPendiente" href="pago.html">Facturas</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="index.php">Menu Principal</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="pago.php">Remisiones</a></li>
+                    <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#facturaPendiente" href="pago.php">Facturas</a></li>
                 </ul>
             </div>
         </div>

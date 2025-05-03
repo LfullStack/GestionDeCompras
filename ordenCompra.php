@@ -21,9 +21,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link text-light" href="index.html">Menu Principal</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="ordenCompra.html">Productos</a></li>
-                        <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#productoAgregado" href="ordenCompra.html">Agregados</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="index.php">Menu Principal</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="ordenCompra.php">Productos</a></li>
+                        <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#productoAgregado" href="ordenCompra.php">Agregados</a></li>
                         
                     </ul>
                 </div>
@@ -75,7 +75,7 @@
                 <button class="btn btn-primary" id="generarOrden" type="button">Generar Orden</button>
             </div>
         </div>
-        <a href="plantillaOrden.html" target="_blank" title="Ver orden de compra"><button type="submit" class="btn btn-primary w-100 boton-Generar" onclick="generarOrden()">Generar Orden de Compra</button></a>
+            <a href="plantillaOrden.php" target="_blank" title="Ver orden de compra"><button type="submit" class="btn btn-primary w-100 boton-Generar" onclick="generarOrden()">Generar Orden de Compra</button></a>
     </div>
     
 

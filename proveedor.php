@@ -21,9 +21,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link text-light" href="index.html">Menu Principal</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="proveedor.html">Nuevo</a></li>
-                        <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#proveedorRegistrado" href="proveedor.html">Registrados</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="index.php">Menu Principal</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="proveedor.php">Nuevo</a></li>
+                        <li class="nav-item "><a class="nav-link text-light" data-bs-toggle="collapse" data-bs-target="#proveedorRegistrado" href="proveedor.php">Registrados</a></li>
                     </ul>
                 </div>
             </div>

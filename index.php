@@ -36,7 +36,7 @@
 
             <!-- Proveedor -->
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                <a href="proveedor.html" class="card-link w-100">
+                <a href="proveedor.php" class="card-link w-100">
                     <div class="card card-hover bg-secondary text-light mx-auto h-100">
                         <img src="img/proveedor.jpg" class="card-img-top" alt="Proveedor">
                         <div class="card-body d-flex flex-column">
@@ -48,7 +48,7 @@
             </div>
             <!-- Orden de Comrpra -->
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                <a href="ordenCompra.html" class="card-link w-100">
+                <a href="ordenCompra.php" class="card-link w-100">
                     <div class="card card-hover bg-secondary text-light mx-auto h-100">
                         <img src="img/ordenCompra.jpg" class="card-img-top" alt="Orden de compras">
                         <div class="card-body d-flex flex-column">
@@ -60,7 +60,7 @@
             </div>
             <!-- Pagos -->
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                <a href="pago.html" class="card-link w-100">
+                <a href="pago.php" class="card-link w-100">
                     <div class="card card-hover bg-secondary text-light mx-auto h-100">
                         <img src="img/factura.jpg" class="card-img-top" alt="Facturas">
                         <div class="card-body d-flex flex-column">
@@ -72,7 +72,7 @@
             </div>
             <!-- Historial -->
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                <a href="historial.html" class="card-link w-100">
+                <a href="historial.php" class="card-link w-100">
                     <div class="card card-hover bg-secondary text-light mx-auto h-100">
                         <img src="img/historial.jpg" class="card-img-top" alt="Historial">
                         <div class="card-body d-flex flex-column">
