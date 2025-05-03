@@ -29,37 +29,56 @@ function agregarProducto(nombre, cantidad, valor) {
 // === Mostrar proveedores ===
 function mostrarProveedor() {
     const tabla = document.getElementById('tablaProveedores');
-    if (!tabla) return;
+    if (tabla) {
+        tabla.innerHTML = "";
+        proveedor.forEach(p => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${p.nombreP}</td>
+                <td>${p.nitP}</td>
+                <td>${p.ubicacionP}</td>
+                <td>${p.telefonoP}</td>
+            `;
+            tabla.appendChild(fila);
+        });
+    }
 
-    tabla.innerHTML = "";
-    proveedor.forEach(p => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${p.nombreP}</td>
-            <td>${p.nitP}</td>
-            <td>${p.ubicacionP}</td>
-            <td>${p.telefonoP}</td>
-        `;
-        tabla.appendChild(fila);
-    });
+    // Mostrar datos en la plantilla si existen
+    const p = proveedor[proveedor.length - 1];
+    if (p) {
+        document.getElementById('nombreProveedor') && (document.getElementById('nombreProveedor').innerHTML = `<strong>Nombre:</strong> ${p.nombreP}`);
+        document.getElementById('nitProveedor') && (document.getElementById('nitProveedor').innerHTML = `<strong>NIT:</strong> ${p.nitP}`);
+        document.getElementById('ubicacionProveedor') && (document.getElementById('ubicacionProveedor').innerHTML = `<strong>Ubicación:</strong> ${p.ubicacionP}`);
+        document.getElementById('telefonoProveedor') && (document.getElementById('telefonoProveedor').innerHTML = `<strong>Teléfono:</strong> ${p.telefonoP}`);
+    }
 }
 
 // === Mostrar productos en carrito ===
 function mostrarProductos() {
-    const tabla = document.getElementById('tablaProducto');
+    const tabla = document.getElementById('tablaProducto') || document.getElementById('productosEscogidos');
     if (!tabla) return;
 
     tabla.innerHTML = "";
     carrito.forEach(p => {
         const fila = document.createElement("tr");
         fila.innerHTML = `
-            <td>${p.id}</td>
             <td>${p.nombre}</td>
             <td>${p.cantidad}</td>
-            <td>${p.valor}</td>
+            <td>$${p.valor}</td>
         `;
         tabla.appendChild(fila);
     });
+
+    // Calcular y mostrar totales si están disponibles los elementos
+    const subtotal = carrito.reduce((acc, p) => acc + (parseFloat(p.valor) * parseFloat(p.cantidad)), 0);
+    const iva = subtotal * 0.19;
+    const flete = 15000; // fijo
+    const total = subtotal + iva + flete;
+
+    document.getElementById('subtotal') && (document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`);
+    document.getElementById('iva') && (document.getElementById('iva').textContent = `$${iva.toFixed(2)}`);
+    document.getElementById('flete') && (document.getElementById('flete').textContent = `$${flete.toFixed(2)}`);
+    document.getElementById('totalPago') && (document.getElementById('totalPago').textContent = `$${total.toFixed(2)}`);
 }
 
 // === Recuperar datos guardados ===
@@ -84,9 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ordenCompra = ordenesGuardadas;
     }
 
-    // === Formularios ===
+    // Mostrar fecha e ID si están los elementos
+    const idOrdenCompra = Date.now();
+    document.getElementById("idOrdenCompra") && (document.getElementById("idOrdenCompra").textContent = idOrdenCompra);
+    document.getElementById("fechaEmision") && (document.getElementById("fechaEmision").textContent = `Fecha Emisión: ${new Date().toLocaleDateString()}`);
 
-    // Proveedor
+    // === Formularios ===
     const formProveedor = document.getElementById('formProveedor');
     if (formProveedor) {
         formProveedor.addEventListener('submit', function (e) {
@@ -105,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Producto
     const formProducto = document.getElementById('formProducto');
     if (formProducto) {
         formProducto.addEventListener('submit', function (e) {
@@ -123,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // === Generar orden ===
     const botonGenerar = document.getElementById("generarOrden");
     if (botonGenerar) {
         botonGenerar.addEventListener("click", () => {
@@ -145,61 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
             carrito = [];
             localStorage.setItem("carrito", JSON.stringify(carrito));
             mostrarProductos();
-
-            if (document.getElementById('productosEscogidos')) {
-                const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
-                let subtotal = 0;
-            
-                carritoGuardado.forEach(producto => {
-                    document.getElementById('productosEscogidos').innerHTML += `
-                        <tr>
-                            <td>${producto.nombre}</td>
-                            <td>${producto.cantidad}</td>
-                            <td>$${producto.valor}</td>
-                        </tr>
-                    `;
-                    subtotal += producto.valor;
-                });
-            
-                const iva = subtotal * 0.19;
-                const total = subtotal + iva;
-            
-                document.getElementById("subtotal").textContent = `$${subtotal}`;
-                document.getElementById("iva").textContent = `$${iva.toFixed(2)}`;
-                document.getElementById("totalPago").textContent = `$${total.toFixed(2)}`;
-            }
-            
-            // Mostrar fecha y número de factura
-            if (document.getElementById("fecha")) {
-                const fecha = new Date().toLocaleDateString('es-ES');
-                document.getElementById("fecha").textContent = `Fecha: ${fecha}`;
-            }
-            if (document.getElementById("idFactura")) {
-                document.getElementById("idFactura").textContent = Math.floor(Math.random() * 1000000);
-            }
-            
-            // Registrar datos del cliente
-            const formCliente = document.getElementById("formCliente");
-            if (formCliente) {
-                formCliente.addEventListener("submit", function (e) {
-                    e.preventDefault();
-            
-                    const nombre = document.getElementById("nombreCliente").value;
-                    const direccion = document.getElementById("direccionCliente").value;
-                    const telefono = document.getElementById("telefonoCliente").value;
-                    const email = document.getElementById("emailCliente").value;
-            
-                    document.getElementById('nombre').innerHTML = `<strong>Nombre:</strong> ${nombre}`;
-                    document.getElementById('direccion').innerHTML = `<strong>Dirección:</strong> ${direccion}`;
-                    document.getElementById('telefono').innerHTML = `<strong>Teléfono:</strong> ${telefono}`;
-                    document.getElementById('email').innerHTML = `<strong>Email:</strong> ${email}`;
-            
-                    const registroCliente = document.getElementById("formCliente");
-                    const factura= document.getElementById("factura");
-                    registroCliente.classList.add("d-none");
-                    factura.classList.remove("d-none");
-                });
-            }
 
             // Abrir plantilla en nueva pestaña
             window.open("plantillaOrden.html", "_blank");
