@@ -71,7 +71,14 @@
                 </tbody>
             </table>
         </div>
-        <a href="plantillaOrden.html" target="_blank" title="Ver orden de compra"><button type="submit" class="btn btn-primary w-100 boton-Generar" onclick="generarOrden()">Generar Orden de Compra</button></a>
+        <a href="plantillaOrden.html" target="_blank" title="Ver orden de compra">
+            <button type="submit" class="btn btn-primary w-100 boton-Generar" onclick="generarOrden()">Generar Orden de Compra</button>
+        </a>
+    </div>
+
+    <div class="container mt-5" id="historialFacturas">
+        <h3>Historial de Facturas</h3>
+        <div id="facturasGuardadas"></div>
     </div>
     
 
@@ -82,6 +89,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
